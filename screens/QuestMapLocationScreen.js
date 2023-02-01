@@ -1,28 +1,29 @@
 import { Box, Divider } from "native-base";
 import { useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, ScrollView } from 'react-native';
-import MapView from 'react-native-maps';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import MapView, { Marker } from 'react-native-maps';
 
 export default function QuestMapLocationScreen({ route, navigation }) {
+    const { latitude, longitude } = route.params;
+
     return ( 
-        <ScrollView contentContainerStyle={styles.scrollViewContainer}>
-            <Text style={styles.questCategoriesTitle}>QUEST MAP</Text>
-        </ScrollView>
+        <View style={styles.container}>
+            <MapView style={styles.map} initialRegion={{ latitude: latitude, longitude: longitude, latitudeDelta: 0.01, longitudeDelta: 0.01,}}>
+            <Marker
+                key={1}
+                coordinate={{ latitude: latitude, longitude: longitude }}
+            />
+            </MapView>
+        </View>
     );
 }
 
 const styles = StyleSheet.create({
-    scrollViewContainer: {
+    container: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#070707',
     },
-    questCategoriesTitle: {
-        fontSize: 28,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        color: '#EEE5E9',
-        marginBottom: 20,
+    map: {
+        width: '100%',
+        height: '100%',
     },
 });
