@@ -11,8 +11,6 @@ export default function QuestCategoriesScreen({ navigation }) {
     return ( 
         <ScrollView contentContainerStyle={styles.scrollViewContainer}>
         <Text style={styles.questCategoriesTitle}>{ clickedQuestTypeCard }</Text>
-        <Divider mb="4" _light={{ bg: "muted.800" }} _dark={{ bg: "muted.50" }} />
-
         {questsTypeCards.map((questTypeCard, index) => {
             return (
             index % 2 === 0 && (
