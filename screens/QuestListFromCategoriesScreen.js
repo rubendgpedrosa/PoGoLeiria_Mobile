@@ -12,12 +12,20 @@ export default function QuestCategoriesScreen({ route, navigation }) {
         <ScrollView contentContainerStyle={styles.scrollViewContainer}>
             <Text style={styles.questCategoriesTitle}>{ categorySelected + " TASKS" }</Text>
             <Divider mb="4" _light={{ bg: "muted.800" }} _dark={{ bg: "muted.50" }} />
-            <TouchableOpacity onPress={() => navigation.navigate('QuestMapLocationScreen')} style={styles.questcardItem}>
+            <TouchableOpacity onPress={() => navigation.navigate('QuestMapLocationScreen', { latitude: 39.74455396478382, longitude: -8.806316166773406 })} style={styles.questCardItem}>
                 <View style={styles.rowContainerFullWidth}>
                     <Text style={styles.textPrimary}>CATCH 5 POKEMON</Text>
                     <Image style={styles.rewardImage}></Image>
                 </View>
             </TouchableOpacity>
+
+            <TouchableOpacity onPress={() => navigation.navigate('QuestMapLocationScreen', { latitude: 39.73455396478382, longitude: -8.806316166773406 })} style={styles.questCardItem}>
+                <View style={styles.rowContainerFullWidth}>
+                    <Text style={styles.textPrimary}>CATCH 5 POKEMON</Text>
+                    <Image style={styles.rewardImage}></Image>
+                </View>
+            </TouchableOpacity>
+
         </ScrollView>
     );
 }
@@ -36,12 +44,13 @@ const styles = StyleSheet.create({
         color: '#EEE5E9',
         marginBottom: 20,
     },
-    questcardItem: {
+    questCardItem: {
         width: '97%',
         height: 90,
         borderRadius: 10,
         justifyContent: 'center',
-        backgroundColor: '#141414'
+        backgroundColor: '#141414',
+        marginBottom: 10,
     },
     textPrimary: {
         fontSize: 20,
