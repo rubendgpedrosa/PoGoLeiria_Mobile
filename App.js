@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import QuestCategoriesScreen from './screens/QuestCategoriesScreen';
 import QuestListFromCategoriesScreen from './screens/QuestListFromCategoriesScreen';
+import QuestMapLocationScreen from './screens/QuestMapLocationScreen';
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -15,6 +16,7 @@ export default function App() {
         <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="QuestCategoriesScreen">
           <Stack.Screen name="QuestCategoriesScreen" component={QuestCategoriesScreen} />
           <Stack.Screen name="QuestListFromCategoriesScreen" component={QuestListFromCategoriesScreen} />
+          <Stack.Screen name="QuestMapLocationScreen" component={QuestMapLocationScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </NativeBaseProvider>
