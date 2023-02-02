@@ -1,4 +1,4 @@
-import { Box, Divider } from "native-base";
+import { Box, Divider, Icon } from "native-base";
 import { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
@@ -11,8 +11,11 @@ export default function QuestMapLocationScreen({ route, navigation }) {
             <MapView style={styles.map} initialRegion={{ latitude: latitude, longitude: longitude, latitudeDelta: 0.01, longitudeDelta: 0.01,}}>
             <Marker
                 key={1}
+                title="An image?"
+                description="Marker With Pokestop Name"
                 coordinate={{ latitude: latitude, longitude: longitude }}
-            />
+            >
+            </Marker>
             </MapView>
         </View>
     );
@@ -27,3 +30,14 @@ const styles = StyleSheet.create({
         height: '100%',
     },
 });
+
+/*
+{this.state.markers.map((marker, index) => (
+    <Marker
+        key={index}
+        coordinate={marker.latlng}
+        title={marker.title}
+        description={marker.description}
+    />
+))}
+*/
