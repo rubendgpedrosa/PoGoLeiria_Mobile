@@ -14,9 +14,9 @@ export default function App() {
     <NativeBaseProvider>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="QuestCategoriesScreen">
-          <Stack.Screen name="QuestCategoriesScreen" component={QuestCategoriesScreen} />
-          <Stack.Screen name="QuestListFromCategoriesScreen" component={QuestListFromCategoriesScreen} />
-          <Stack.Screen name="QuestMapLocationScreen" component={QuestMapLocationScreen} />
+          <Stack.Screen name="QuestCategoriesScreen" component={QuestCategoriesScreen} options={{ animation: "fade_from_bottom" }}/>
+          <Stack.Screen name="QuestListFromCategoriesScreen" component={QuestListFromCategoriesScreen} options={{ animation: "fade_from_bottom" }}/>
+          <Stack.Screen name="QuestMapLocationScreen" component={QuestMapLocationScreen} options={{ animation: "fade_from_bottom" }}/>
         </Stack.Navigator>
       </NavigationContainer>
     </NativeBaseProvider>
