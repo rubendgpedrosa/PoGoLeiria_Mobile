@@ -14,7 +14,11 @@ export default function QuestCategoriesScreen({ route, navigation }) {
     const getQuestsFromGithubRawFileByCategory = async () => {
         try {
             const response = await (async () => {
-                const response = await fetch('https://raw.githubusercontent.com/rubendgpedrosa/PoGoLeiria_Data/main/' + categorySelected.toLowerCase() + '.json');
+                let url = 'https://raw.githubusercontent.com/rubendgpedrosa/PoGoLeiria_Data/main/' + categorySelected.toLowerCase() + '.json'
+                if (categorySelected.toLowerCase().includes('buddy')) {
+                    url = 'https://raw.githubusercontent.com/rubendgpedrosa/PoGoLeiria_Data/main/buddy.json'
+                }
+                const response = await fetch(url);
                 return response.json();
             })();
     
@@ -38,7 +42,7 @@ export default function QuestCategoriesScreen({ route, navigation }) {
             <ScrollView style={{ width:'100%' }}>
                 {isLoading ? (
                     <View>
-                        {[...Array(7)].map((_, i) => (
+                        {[...Array(4)].map((_, i) => (
                             <View key={i} style={styles.skeletonQuestCardItem}>
                                     <Skeleton startColor="#141414" endColor="#292929" h="90" speed="0.75" />
                             </View>
@@ -48,11 +52,11 @@ export default function QuestCategoriesScreen({ route, navigation }) {
                     quests.map((quest, index) => (
                         <TouchableOpacity 
                         key={index}
-                        onPress={() => navigation.navigate('QuestMapLocationScreen', { latitude: quest.latitude, longitude: quest.longitude })} 
+                        onPress={() => navigation.navigate('QuestMapLocationScreen', { category: quest })} 
                         style={styles.questCardItem}
                         >
                             <View style={styles.rowContainerFullWidth}>
-                                <Text style={ styles.textPrimary }>{quest.name}</Text>
+                                <Text style={ styles.textPrimary }>{quest.quest_description}</Text>
                                 <Image style={styles.rewardImage} resizeMode='contain' />
                             </View>
                         </TouchableOpacity>
