@@ -24,10 +24,21 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/pogoleiria_rounded.png",
         "backgroundColor": "#000"
+      },
+      "package": "com.rubendgpedrosa.PoGoLeiria",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyArfJMqVDlwYtZ3csbpY0MX32WGvAgUCkw"
+        }
       }
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "9403e555-8812-4e3f-8384-841c07ec8941"
+      }
     }
   }
 }
