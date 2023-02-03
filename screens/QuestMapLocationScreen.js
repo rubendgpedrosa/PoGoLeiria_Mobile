@@ -1,12 +1,16 @@
 import { StyleSheet, Text, View, Image } from 'react-native';
-import MapView, { Callout, Marker } from 'react-native-maps';
+import MapView, { Callout, Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 
 export default function QuestMapLocationScreen({ route, navigation }) {
     const { category } = route.params;
 
     return ( 
         <View style={styles.container}>
-            <MapView style={styles.map} initialRegion={{ latitude: category.pokestops[0].latitude, longitude: category.pokestops[0].longitude, latitudeDelta: 0.02, longitudeDelta: 0.02,}}>
+            <MapView 
+            provider={PROVIDER_GOOGLE}
+            showsUserLocation
+            style={styles.map} 
+            initialRegion={{ latitude: category.pokestops[0].latitude, longitude: category.pokestops[0].longitude, latitudeDelta: 0.02, longitudeDelta: 0.02,}}>
                 {category.pokestops.map((pokestop, index) => (
                     <Marker
                         key={index}
