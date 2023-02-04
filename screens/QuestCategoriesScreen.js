@@ -11,7 +11,7 @@ export default function QuestCategoriesScreen({ navigation }) {
     const questsTypeCards = [
         { name: "CATCHING", image: catchingImage, style: { backgroundColor: '#f5c032' } },
         { name: "THROWING", image: throwingImage, style: { backgroundColor: '#388f74' } },
-        { name: "BATTLING", image: battlingImage, style: { backgroundColor: '#de3097' } },
+        { name: "BATTLING", image: battlingImage, style: { backgroundColor: '#7a5ccf' } },
         { name: "BUDDY/FRIENDS", image: buddyImage, style: { backgroundColor: '#e77043' } },
         { name: "OTHERS", image: othersImage, style: { backgroundColor: '#d36d95' } },
     ];
@@ -22,7 +22,7 @@ export default function QuestCategoriesScreen({ navigation }) {
         numColumns={2}
         style={styles.scrollViewContainer}
         renderItem={({ item: questTypeCard }) => (
-            <TouchableOpacity style={[styles.cardContainer, styles.darkerGrayColor]} onPress={() => navigation.navigate('QuestListFromCategoriesScreen', { categorySelected: questTypeCard.name })}>
+            <TouchableOpacity style={[styles.cardContainer, styles.darkerGrayColor]} onPress={() => navigation.navigate('QuestListFromCategoriesScreen', { categorySelected: questTypeCard.name, categoryColor: questTypeCard.style })}>
                 <ImageBackground
                     resizeMode="cover"
                     source={questTypeCard.image}
