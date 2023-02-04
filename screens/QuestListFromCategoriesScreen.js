@@ -1,12 +1,18 @@
-import { Skeleton, Divider } from "native-base";
+import { Skeleton, Divider, Input, Icon } from "native-base";
 import { useState, useEffect } from 'react';
+import { MaterialIcons } from "@expo/vector-icons";
 import { StyleSheet, Text, TouchableOpacity, ScrollView, Image, View } from 'react-native';
 
 export default function QuestCategoriesScreen({ route, navigation }) {
-    const { categorySelected } = route.params;
+    const rewards = require('../assets/rewards/nanab.png');
+    const { categorySelected, categoryColor } = route.params;
     const [quests, setQuests] = useState([]);
     const [isLoading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
+
+    const handleClearSearchTerm = () => {
+        setSearchTerm('');
+    }
 
     // Fetch data initially
     // https://raw.githubusercontent.com/rubendgpedrosa/PoGoLeiria_Data/main/catching.json
@@ -36,10 +42,17 @@ export default function QuestCategoriesScreen({ route, navigation }) {
 
     return ( 
         <ScrollView contentContainerStyle={styles.scrollViewContainer}>
-            <Text>{ categorySelected + " TASKS" }</Text>
-            <Divider mb="4" _light={{ bg: "muted.800" }} _dark={{ bg: "muted.50" }} />
+            <Input placeholder="Quest Name / Reward" width="100%" borderRadius="4" py="3" px="1" fontSize="14" style={{color: '#c0c0c0'}}
+            InputLeftElement={<Icon m="2" ml="3" size="6" color="#c0c0c0" as={<MaterialIcons name="search" />} />} onChangeText={(text) => setSearchTerm(text)}
+            InputRightElement={searchTerm ?
+            <TouchableOpacity onPress={handleClearSearchTerm}>
+            <Icon m="2" mr="3" size="6" color="gray.400" as={<MaterialIcons name="close" />} />
+            </TouchableOpacity> : null}
+            value={searchTerm}
+            />
+            <Divider mt="4" _light={{ bg: "muted.800" }} _dark={{ bg: "muted.50" }} />
             
-            <ScrollView style={{ width:'100%' }}>
+            <ScrollView style={{ width:'100%', paddingHorizontal: '2%', paddingTop: 10 }}>
                 {isLoading ? (
                     <View>
                         {[...Array(12)].map((_, i) => (
@@ -48,8 +61,14 @@ export default function QuestCategoriesScreen({ route, navigation }) {
                             </View>
                         ))}
                     </View>
-                ) : (
-                    quests.map((quest, index) => (
+                ) : quests.filter((quest) =>
+                        quest.quest_description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                        quest.quest_reward.toLowerCase().includes(searchTerm.toLowerCase())
+                    ).length ? (
+                    quests.filter((quest) =>
+                        quest.quest_description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                        quest.quest_reward.toLowerCase().includes(searchTerm.toLowerCase())
+                    ).map((quest, index) => (
                         <TouchableOpacity 
                         key={index}
                         onPress={() => navigation.navigate('QuestMapLocationScreen', { category: quest })} 
@@ -60,10 +79,12 @@ export default function QuestCategoriesScreen({ route, navigation }) {
                                     <Text style={ styles.textPrimary }>{quest.quest_description}</Text>
                                     <Text style={ styles.textSecondary }>Nº Pokestops: { quest.pokestops.length ?? 0 }</Text>
                                 </View>
-                                <Image style={styles.rewardImage} resizeMode='contain' />
+                                <Image style={Object.assign({}, styles.rewardImage, categoryColor )} resizeMode='contain' source={rewards} />
                             </View>
                         </TouchableOpacity>
                     ))
+                ) : (
+                    <Text style={{color: '#c0c0c0' }}>No Results</Text>
                 )}
             </ScrollView>
 
@@ -75,7 +96,7 @@ const styles = StyleSheet.create({
     scrollViewContainer: {
         flex: 1,
         alignItems: 'center',
-        paddingTop: '12%',
+        paddingTop: '4%',
         paddingBottom: '4%',
         backgroundColor: '#070707',
     },
@@ -116,7 +137,7 @@ const styles = StyleSheet.create({
         width: 60,
         height: 70,
         borderRadius: 10,
-        backgroundColor: 'darkgray',
+        backgroundColor: '#f5c032',
     },
     rowContainerFullWidth: {
         flexDirection: 'row',
