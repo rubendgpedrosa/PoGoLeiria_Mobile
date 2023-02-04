@@ -36,13 +36,13 @@ export default function QuestCategoriesScreen({ route, navigation }) {
 
     return ( 
         <ScrollView contentContainerStyle={styles.scrollViewContainer}>
-            <Text style={styles.questCategoriesTitle}>{ categorySelected + " TASKS" }</Text>
+            <Text>{ categorySelected + " TASKS" }</Text>
             <Divider mb="4" _light={{ bg: "muted.800" }} _dark={{ bg: "muted.50" }} />
             
             <ScrollView style={{ width:'100%' }}>
                 {isLoading ? (
                     <View>
-                        {[...Array(4)].map((_, i) => (
+                        {[...Array(12)].map((_, i) => (
                             <View key={i} style={styles.skeletonQuestCardItem}>
                                     <Skeleton startColor="#141414" endColor="#292929" h="90" speed="0.75" />
                             </View>
@@ -56,7 +56,10 @@ export default function QuestCategoriesScreen({ route, navigation }) {
                         style={styles.questCardItem}
                         >
                             <View style={styles.rowContainerFullWidth}>
-                                <Text style={ styles.textPrimary }>{quest.quest_description}</Text>
+                                <View style={styles.textContainer}>
+                                    <Text style={ styles.textPrimary }>{quest.quest_description}</Text>
+                                    <Text style={ styles.textSecondary }>Nº Pokestops: { quest.pokestops.length ?? 0 }</Text>
+                                </View>
                                 <Image style={styles.rewardImage} resizeMode='contain' />
                             </View>
                         </TouchableOpacity>
@@ -72,7 +75,8 @@ const styles = StyleSheet.create({
     scrollViewContainer: {
         flex: 1,
         alignItems: 'center',
-        paddingTop: '6%',
+        paddingTop: '12%',
+        paddingBottom: '4%',
         backgroundColor: '#070707',
     },
     questCategoriesTitle: {
@@ -84,31 +88,39 @@ const styles = StyleSheet.create({
     },
     questCardItem: {
         width: '100%',
-        height: 90,
+        height: 70,
         borderRadius: 10,
         justifyContent: 'center',
         backgroundColor: '#141414',
         marginBottom: 10,
-        elevation: 5,
+    },
+    textContainer: { 
+        flex: 1,
+        justifyContent: 'center'
     },
     textPrimary: {
-        fontSize: 20,
+        fontSize: 16,
         paddingLeft: 20,
+        paddingBottom: 0,
+        marginBottom: 0,
         fontWeight: 'bold',
         color: '#EEE5E9',
-        flex: 1,
+    },
+    textSecondary: {
+        fontSize: 13,
+        opacity: 0.6,
+        paddingLeft: 20,
+        color: '#EEE5E9',
     },
     rewardImage: {
         width: 60,
-        height: 90,
+        height: 70,
         borderRadius: 10,
         backgroundColor: 'darkgray',
     },
     rowContainerFullWidth: {
         flexDirection: 'row',
-        alignItems: 'center',
         justifyContent: 'space-between',
-        width: '100%',
     },
     searchContainer: {
         backgroundColor: '#EEE5E9',
@@ -120,8 +132,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
     },
     skeletonQuestCardItem: {
-        width: '100%',
-        height: 90,
+        height: 70,
         borderRadius: 10,
         justifyContent: 'center',
         backgroundColor: 'transparent',
