@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { NativeBaseProvider } from "native-base";
+import { NativeBaseProvider, StatusBar } from "native-base";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -13,10 +13,55 @@ export default function App() {
   return (
     <NativeBaseProvider>
       <NavigationContainer>
-        <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="QuestCategoriesScreen">
-          <Stack.Screen name="QuestCategoriesScreen" component={QuestCategoriesScreen} options={{ animation: "fade_from_bottom" }}/>
-          <Stack.Screen name="QuestListFromCategoriesScreen" component={QuestListFromCategoriesScreen} options={{ animation: "fade_from_bottom" }}/>
-          <Stack.Screen name="QuestMapLocationScreen" component={QuestMapLocationScreen} options={{ animation: "fade_from_bottom" }}/>
+        <Stack.Navigator initialRouteName="QuestCategoriesScreen">
+          <Stack.Screen name="QuestCategoriesScreen" component={QuestCategoriesScreen}
+          options={{ 
+            title: "PoGoLeiria", 
+            animation: "slide_from_right", 
+            animationDuration: 50,
+            headerStyle: { backgroundColor: '#141414' },
+            headerTintColor: '#c0c0c0',
+            headerTitleStyle: {
+              fontSize: 30,
+              fontWeight: 'bold',
+              textShadowColor: 'black',
+              textShadowOffset: { width: 1, height: 1 },
+              textShadowRadius: 2,
+            },
+            headerTitleAlign: 'center',
+          }}/>
+          <Stack.Screen name="QuestListFromCategoriesScreen" component={QuestListFromCategoriesScreen}
+          options={{ 
+            title: "PoGoLeiria", 
+            animation: "slide_from_right", 
+            animationDuration: 50,
+            headerStyle: { backgroundColor: '#141414' },
+            headerTintColor: '#c0c0c0',
+            headerTitleStyle: {
+              fontSize: 30,
+              fontWeight: 'bold',
+              textShadowColor: 'black',
+              textShadowOffset: { width: 1, height: 1 },
+              textShadowRadius: 2,
+            },
+            headerTitleAlign: 'center' 
+          }}/>
+          <Stack.Screen name="QuestMapLocationScreen" component={QuestMapLocationScreen}
+          options={{ 
+            title: "PoGoLeiria", 
+            animation: "slide_from_right", 
+            animationDuration: 50,
+            headerStyle: { backgroundColor: '#141414' },
+            headerTintColor: '#c0c0c0',
+            headerTitleStyle: {
+              fontSize: 30,
+              fontWeight: 'bold',
+              textShadowColor: 'black',
+              textShadowOffset: { width: 1, height: 1 },
+              textShadowRadius: 2,
+            },
+            headerTitleAlign: 'center' 
+          }}/>
         </Stack.Navigator>
       </NavigationContainer>
     </NativeBaseProvider>

@@ -1,91 +1,68 @@
 import { Box, Divider } from "native-base";
 import { useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, ScrollView } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, ScrollView, ImageBackground, View, FlatList } from 'react-native';
 
 export default function QuestCategoriesScreen({ navigation }) {
-    const [questsTypeCards, setQuestsTypeCards] = useState(["CATCHING", "THROWING", "BATTLING", "BUDDY/FRIENDS", "OTHERS"]);
-    const [clickedQuestTypeCard, setClickedQuestTypeCard] = useState("QUEST CATEGORIES");
+    const catchingImage = require('../assets/categories/singlepokeball.png');
+    const throwingImage = require('../assets/categories/pokeballgroup.png');
+    const battlingImage = require('../assets/categories/raidpass.png');
+    const buddyImage = require('../assets/categories/poliwag.png');
+    const othersImage = require('../assets/categories/starpiece.png');
+    const questsTypeCards = [
+        { name: "CATCHING", image: catchingImage, style: { backgroundColor: '#f5c032' } },
+        { name: "THROWING", image: throwingImage, style: { backgroundColor: '#388f74' } },
+        { name: "BATTLING", image: battlingImage, style: { backgroundColor: '#de3097' } },
+        { name: "BUDDY/FRIENDS", image: buddyImage, style: { backgroundColor: '#e77043' } },
+        { name: "OTHERS", image: othersImage, style: { backgroundColor: '#d36d95' } },
+    ];
 
-    // Fetch data initially
-
-    return ( 
-        <ScrollView contentContainerStyle={styles.scrollViewContainer}>
-        <Text style={styles.questCategoriesTitle}>{ clickedQuestTypeCard }</Text>
-        {questsTypeCards.map((questTypeCard, index) => {
-            return (
-            index % 2 === 0 && (
-                <Box style={styles.boxStyle} key={questTypeCard}>
-                <TouchableOpacity style={[styles.cardContainer, styles.darkerGrayColor]} onPress={() => navigation.navigate('QuestListFromCategoriesScreen', { categorySelected: questTypeCard })}>
-                    <Text style={styles.textPrimary}>{questTypeCard} TASKS</Text>
-                </TouchableOpacity>
-                {index + 1 < questsTypeCards.length && (
-                    <TouchableOpacity style={[styles.cardContainer, styles.darkerGrayColor]} onPress={() => navigation.navigate('QuestListFromCategoriesScreen', { categorySelected: questsTypeCards[index + 1] })}>
-                    <Text style={styles.textPrimary}>{questsTypeCards[index + 1]} TASKS</Text>
-                    </TouchableOpacity>
-                )}
-                </Box>
-            )
-            );
-        })}
-        </ScrollView>
+    return (
+        <FlatList
+        data={questsTypeCards}
+        numColumns={2}
+        style={styles.scrollViewContainer}
+        renderItem={({ item: questTypeCard }) => (
+            <TouchableOpacity style={[styles.cardContainer, styles.darkerGrayColor]} onPress={() => navigation.navigate('QuestListFromCategoriesScreen', { categorySelected: questTypeCard.name })}>
+                <ImageBackground
+                    resizeMode="cover"
+                    source={questTypeCard.image}
+                    style={styles.image}></ImageBackground>
+                <View style={styles.textContainer}>
+                    <Text style={Object.assign({}, styles.textBackground, questTypeCard.style)}>{questTypeCard.name}</Text>
+                </View>
+            </TouchableOpacity>
+        )}
+        />
     );
 }
 
 const styles = StyleSheet.create({
     scrollViewContainer: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
         backgroundColor: '#070707',
-    },
-    textPrimary: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        color: '#EEE5E9',
-    },
-    primaryColor: {
-        backgroundColor: '#177E89',
-    },
-    successColor: {
-        backgroundColor: '#8CB369',
-    },
-    errorColor: {
-        backgroundColor: '#DB3A34',
     },
     darkerGrayColor: {
         backgroundColor: '#141414',
     },
-    gradientColorBackground: {
-        backgroundColor: 'linear-gradient(90deg, rgba(23,126,137,1) 0%, rgba(23,126,137,1) 50%, rgba(23,126,137,1) 100%)',
-        //Shadow
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 9,
-        }
-    },
-    boxStyle: {
-        width: '100%',
-        height: 180,
-        borderRadius: 10,
-        justifyContent: 'center',
-        alignItems: 'center',
-        flexDirection: 'row',
-    },
     cardContainer: {
-        width: '46%',
-        height: '90%',
-        marginHorizontal: 10,
+        width: '45%',
+        marginHorizontal: '2.5%',
+        marginVertical: 10,
         borderRadius: 10,
-        justifyContent: 'center',
-        alignItems: 'center',
     },
-    questCategoriesTitle: {
-        fontSize: 28,
-        fontWeight: 'bold',
+    image: {
+        height: 80,
+        width: 100,
+        alignSelf: 'center',
+        resizeMode: 'contain',
+        padding: 10,
+    },
+    textBackground: {
+        fontWeight: '900',
+        fontSize: 16,
+        color: 'white',
         textAlign: 'center',
-        color: '#EEE5E9',
-        marginBottom: 20,
-    },
+        borderBottomRightRadius: 10,
+        borderBottomLeftRadius: 10,
+        padding: 5,
+    }
 });
