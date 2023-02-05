@@ -1,6 +1,6 @@
-import { Box, Divider, Flex, Button } from "native-base";
+import { Flex } from "native-base";
 import { useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, ScrollView, ImageBackground, View, FlatList } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, ImageBackground, View, FlatList } from 'react-native';
 
 export default function QuestCategoriesScreen({ navigation }) {
     const catchingImage = require('../assets/categories/catching.png');
@@ -15,28 +15,35 @@ export default function QuestCategoriesScreen({ navigation }) {
         { name: "BUDDY/FRIENDS", image: buddyImage, style: { backgroundColor: '#7a5ccf' } },
         { name: "OTHERS", image: othersImage, style: { backgroundColor: '#d36d95' } },
     ];
+    const [selectedZone, setSelectedZone] = useState('leiria');
 
     const handleSelectedZone = (zone) => {
-        console.log(zone);
+        setSelectedZone(zone);
     }
 
     return (
         <View style={{height: '100%'}}>
             <Flex direction="row" style={ styles.rowTopCategoryScreen }>
             <View style={styles.infoBanner}>
-                <Text style={styles.infoText}>Seleciona uma zona antes de começar</Text>
+                <Text style={styles.infoText}>
+                    {selectedZone === null? "Seleciona uma zona antes de começar" : "Zona selecionada: " + selectedZone.charAt(0).toUpperCase() + selectedZone.slice(1)}
+                </Text>
             </View>
             </Flex>
-            <Flex direction="row" style={ styles.rowTopCategoryScreen }>
-                <Button style={styles.buttonZoneSelection} onPress={() => handleSelectedZone("leiria")}><Text style={styles.buttonZoneSelectionText}>Leiria</Text></Button>
-                <Button style={styles.buttonZoneSelection} onPress={() => handleSelectedZone("marinha")}><Text style={styles.buttonZoneSelectionText}>Marinha</Text></Button>
+            <Flex direction="row" style={Object.assign({}, styles.rowTopCategoryScreen, { paddingBottom: 10 })}>
+                <TouchableOpacity disabled={selectedZone === "leiria"} style={styles.buttonZoneSelection} onPress={() => handleSelectedZone("leiria")}><Text style={styles.buttonZoneSelectionText}>Leiria</Text></TouchableOpacity>
+                <TouchableOpacity disabled={selectedZone === "marinha"}  style={styles.buttonZoneSelection} onPress={() => handleSelectedZone("marinha")}><Text style={styles.buttonZoneSelectionText}>Marinha</Text></TouchableOpacity>
             </Flex>
             <FlatList
             data={questsTypeCards}
             numColumns={2}
             style={styles.scrollViewContainer}
             renderItem={({ item: questTypeCard }) => (
-                <TouchableOpacity style={[styles.cardContainer, styles.darkerGrayColor]} onPress={() => navigation.navigate('QuestListFromCategoriesScreen', { categorySelected: questTypeCard.name, categoryColor: questTypeCard.style })}>
+                <TouchableOpacity
+                    style={[styles.cardContainer, styles.darkerGrayColor]}
+                    onPress={() => navigation.navigate('QuestListFromCategoriesScreen',
+                    { categorySelected: questTypeCard.name, categoryColor: questTypeCard.style, selectedZone: selectedZone }
+                )}>
                     <ImageBackground
                         resizeMode="cover"
                         source={questTypeCard.image}
@@ -90,6 +97,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         borderRadius: 10,
         margin: 10,
+        marginBottom: 0,
         width: '100%',
     },
     infoText: {
