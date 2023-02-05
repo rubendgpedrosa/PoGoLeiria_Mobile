@@ -17,8 +17,7 @@ export default function App() {
           <Stack.Screen name="QuestCategoriesScreen" component={QuestCategoriesScreen}
           options={{ 
             title: "PoGoLeiria", 
-            animation: "slide_from_right", 
-            animationDuration: 50,
+            animation: "none", 
             headerStyle: { backgroundColor: '#141414' },
             headerTintColor: '#c0c0c0',
             headerTitleStyle: {
@@ -33,8 +32,7 @@ export default function App() {
           <Stack.Screen name="QuestListFromCategoriesScreen" component={QuestListFromCategoriesScreen}
           options={{ 
             title: "PoGoLeiria", 
-            animation: "slide_from_right", 
-            animationDuration: 50,
+            animation: "none", 
             headerStyle: { backgroundColor: '#141414' },
             headerTintColor: '#c0c0c0',
             headerTitleStyle: {
@@ -49,8 +47,7 @@ export default function App() {
           <Stack.Screen name="QuestMapLocationScreen" component={QuestMapLocationScreen}
           options={{ 
             title: "PoGoLeiria", 
-            animation: "slide_from_right", 
-            animationDuration: 50,
+            animation: "none", 
             headerStyle: { backgroundColor: '#141414' },
             headerTintColor: '#c0c0c0',
             headerTitleStyle: {
