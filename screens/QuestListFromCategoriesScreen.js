@@ -3,6 +3,9 @@ import { useState, useEffect } from 'react';
 import { MaterialIcons } from "@expo/vector-icons";
 import { StyleSheet, Text, TouchableOpacity, ScrollView, Image, View } from 'react-native';
 
+import importedImages from '../library/AssetsLibrary';
+import combatPower from '../library/cpLibrary';
+
 export default function QuestCategoriesScreen({ route, navigation }) {
     const rewards = require('../assets/rewards/nanab.png');
     const { categorySelected, categoryColor } = route.params;
@@ -79,7 +82,21 @@ export default function QuestCategoriesScreen({ route, navigation }) {
                                     <Text style={ styles.textPrimary }>{quest.quest_description}</Text>
                                     <Text style={ styles.textSecondary }>Nº Pokestops: { quest.pokestops.length ?? 0 }</Text>
                                 </View>
-                                <Image style={Object.assign({}, styles.rewardImage, categoryColor )} resizeMode='contain' source={rewards} />
+                                <View>
+                                    <Image style={Object.assign({}, styles.rewardImage, categoryColor )} resizeMode='contain' source={
+                                        quest.quest_reward_type === 'Pokemon' ? 
+                                        importedImages[quest.quest_reward_pokemon_name] :
+                                        importedImages[quest.quest_reward_item_name] } />
+                                    {quest.quest_reward_type === 'Pokemon' ?
+                                    <Text style={styles.badgeRewardImage}>
+                                        {combatPower[quest.pokestops[0].pokemon_id]}
+                                    </Text> :
+                                    <Text style={styles.badgeRewardImage}>
+                                        x{quest.quest_reward_amount}
+                                    </Text> 
+                                    }
+                                </View>
+
                             </View>
                         </TouchableOpacity>
                     ))
@@ -160,4 +177,14 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         overflow: 'hidden',
     },
+    badgeRewardImage: {
+        color: 'white', 
+        position: 'absolute', 
+        bottom: 0, 
+        textAlign: 'center',
+        backgroundColor: '#141414',
+        opacity: 0.8,
+        width: '100%',
+        fontWeight: 'bold',
+    }
 });
