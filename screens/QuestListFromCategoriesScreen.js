@@ -32,18 +32,19 @@ export default function QuestCategoriesScreen({ route, navigation }) {
             })();
     
 
-            /*
             let filteredResponse = [];
-            if(selectedZone === "marinha"){
+            if(selectedZone === "leiria"){
                 filteredResponse = response.map(task => {
-                    return {...task, pokestops: task.pokestops.filter(pokestop => pokestop.longitude.startsWith("-8.9"))};
-                });
-            } else {
-                filteredResponse = response.map(task => {
-                    return {...task, pokestops: task.pokestops.filter(pokestop => !pokestop.longitude.startsWith("-8.9"))};
+                    return {...task, pokestops: task.pokestops.filter(pokestop => !String(pokestop.longitude).startsWith("-8.9"))};
                 });
             }
-            */
+            if(selectedZone === "marinha"){
+                filteredResponse = response.map(task => {
+                    return {...task, pokestops: task.pokestops.filter(pokestop => String(pokestop.longitude).startsWith("-8.9"))};
+                });
+            }
+
+            filteredResponse = filteredResponse.filter(task => task.pokestops.length > 0);
 
             setQuests(filteredResponse);
         } catch (error) {
