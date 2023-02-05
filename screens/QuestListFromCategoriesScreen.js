@@ -3,12 +3,12 @@ import { useState, useEffect } from 'react';
 import { MaterialIcons } from "@expo/vector-icons";
 import { StyleSheet, Text, TouchableOpacity, ScrollView, Image, View } from 'react-native';
 
-import importedImages from '../library/AssetsLibrary';
-import combatPower from '../library/cpLibrary';
+import importedImages from '../library/importedImages';
+import combatPower from '../library/combatPower';
 
 export default function QuestCategoriesScreen({ route, navigation }) {
     const rewards = require('../assets/rewards/nanab.png');
-    const { categorySelected, categoryColor } = route.params;
+    const { categorySelected, categoryColor, selectedZone } = route.params;
     const [quests, setQuests] = useState([]);
     const [isLoading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
@@ -31,7 +31,22 @@ export default function QuestCategoriesScreen({ route, navigation }) {
                 return response.json();
             })();
     
-            setQuests(response);
+
+            let filteredResponse = [];
+            if(selectedZone === "leiria"){
+                filteredResponse = response.map(task => {
+                    return {...task, pokestops: task.pokestops.filter(pokestop => !String(pokestop.longitude).startsWith("-8.9"))};
+                });
+            }
+            if(selectedZone === "marinha"){
+                filteredResponse = response.map(task => {
+                    return {...task, pokestops: task.pokestops.filter(pokestop => String(pokestop.longitude).startsWith("-8.9"))};
+                });
+            }
+
+            filteredResponse = filteredResponse.filter(task => task.pokestops.length > 0);
+
+            setQuests(filteredResponse);
         } catch (error) {
             console.error(error);
         } finally {
