@@ -22,10 +22,10 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/pogoleiria_rounded.png",
+        "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#000"
       },
-      "package": "com.rubendgpedrosa.PoGoLeiria",
+      "package": "com.faynn.PoGoLeiria",
       "config": {
         "googleMaps": {
           "apiKey": "AIzaSyArfJMqVDlwYtZ3csbpY0MX32WGvAgUCkw"
