@@ -3,8 +3,8 @@ import { useState, useEffect } from 'react';
 import { MaterialIcons } from "@expo/vector-icons";
 import { StyleSheet, Text, TouchableOpacity, ScrollView, Image, View } from 'react-native';
 
-import importedImages from '../library/importedImages';
 import combatPower from '../library/combatPower';
+import pokestopImages from '../library/pokestopImages';
 
 export default function QuestCategoriesScreen({ route, navigation }) {
     const rewards = require('../assets/rewards/nanab.png');
@@ -100,8 +100,8 @@ export default function QuestCategoriesScreen({ route, navigation }) {
                                 <View>
                                     <Image style={Object.assign({}, styles.rewardImage, categoryColor )} resizeMode='contain' source={
                                         quest.quest_reward_type === 'Pokemon' ? 
-                                        importedImages[quest.quest_reward_pokemon_name] :
-                                        importedImages[quest.quest_reward_item_name] } />
+                                        pokestopImages(quest.quest_reward_pokemon_name.replace(/\s/g, '').toLowerCase()) :
+                                        pokestopImages(quest.quest_reward_item_name.replace(/\s/g, '').toLowerCase()) } />
                                     {quest.quest_reward_type === 'Pokemon' ?
                                     <Text style={styles.badgeRewardImage}>
                                         {combatPower[quest.pokestops[0].pokemon_id].replace(/\,/g,'')}

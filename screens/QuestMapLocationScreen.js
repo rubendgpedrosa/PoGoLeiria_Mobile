@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Image, Dimensions, FlatList } from 'react-native';
 import MapView, { Callout, Marker, PROVIDER_GOOGLE } from 'react-native-maps';
-
-import importedImages from '../library/importedImages';
-
 import * as Location from 'expo-location';
+
+import pokestopImages from '../library/pokestopImages';
 
 export default function QuestMapLocationScreen({ route, navigation }) {
     const [location, setLocation] = useState(null);
@@ -78,7 +77,7 @@ export default function QuestMapLocationScreen({ route, navigation }) {
             renderItem={({ item, index }) => {
                 return (
                 <View style={styles.carouselItemContainer} key={index}>
-                    <Image style={styles.image} source={{uri: pokestop.url }} />
+                    <Image style={styles.image} source={pokestopImages(item.pokestop_id.replace(/\./g, ""))} />
                     <Text style={styles.carouselText}>{item.name}</Text>
                 </View>
                 )

@@ -5,11 +5,12 @@ import { StyleSheet, Text, TouchableOpacity, ImageBackground, View, FlatList } f
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function QuestCategoriesScreen({ navigation }) {
+    let test = 'starpiece';
     const catchingImage = require('../assets/categories/catching.png');
     const throwingImage = require('../assets/categories/pokeballgroup.png');
     const battlingImage = require('../assets/categories/raidpass.png');
     const buddyImage = require('../assets/categories/poliwag.png');
-    const othersImage = require('../assets/categories/starpiece.png');
+    const othersImage = require(`../assets/categories/${test}.png`);
     const questsTypeCards = [
         { name: "CATCHING", image: catchingImage, style: { backgroundColor: '#f5c032' } },
         { name: "THROWING", image: throwingImage, style: { backgroundColor: '#388f74' } },
