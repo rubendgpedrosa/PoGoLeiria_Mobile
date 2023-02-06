@@ -104,7 +104,7 @@ export default function QuestCategoriesScreen({ route, navigation }) {
                                         importedImages[quest.quest_reward_item_name] } />
                                     {quest.quest_reward_type === 'Pokemon' ?
                                     <Text style={styles.badgeRewardImage}>
-                                        {combatPower[quest.pokestops[0].pokemon_id]}
+                                        {combatPower[quest.pokestops[0].pokemon_id].replace(/\,/g,'')}
                                     </Text> :
                                     <Text style={styles.badgeRewardImage}>
                                         x{quest.quest_reward_amount}
