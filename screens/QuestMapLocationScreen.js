@@ -78,7 +78,7 @@ export default function QuestMapLocationScreen({ route, navigation }) {
             renderItem={({ item, index }) => {
                 return (
                 <View style={styles.carouselItemContainer} key={index}>
-                    <Image style={styles.image} source={importedImages[item.pokestop_id + ".png"]} />
+                    <Image style={styles.image} source={{uri: pokestop.url }} />
                     <Text style={styles.carouselText}>{item.name}</Text>
                 </View>
                 )
