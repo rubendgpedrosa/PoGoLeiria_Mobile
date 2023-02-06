@@ -13,7 +13,9 @@
         "preview3": {
             "developmentClient": true
         },
-        "production": {}
+        "production": {
+            "env": { "ANDROID_SDK_ROOT": "C:\\Users\\ruben\\AppData\\Local\\Android\\Sdk" }
+        }
     },
     "cli": {
         "version": ">= 0.52.0"
