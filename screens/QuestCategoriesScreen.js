@@ -1,6 +1,8 @@
 import { Flex } from "native-base";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { StyleSheet, Text, TouchableOpacity, ImageBackground, View, FlatList } from 'react-native';
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function QuestCategoriesScreen({ navigation }) {
     const catchingImage = require('../assets/categories/catching.png');
@@ -17,9 +19,28 @@ export default function QuestCategoriesScreen({ navigation }) {
     ];
     const [selectedZone, setSelectedZone] = useState('leiria');
 
-    const handleSelectedZone = (zone) => {
-        setSelectedZone(zone);
+    const handleSelectedZone = async (zone) => {
+        try {
+            await AsyncStorage.setItem('@selectedZone', zone);
+            setSelectedZone(zone);
+        } catch (e) {
+            console.error(e);
+        }
     }
+
+    useEffect(() => {
+        const retrieveZone = async () => {
+            try {
+            const zone = await AsyncStorage.getItem('@selectedZone');
+            if (zone !== null) {
+                setSelectedZone(zone);
+            }
+        } catch (e) {
+            console.error(e);
+        }
+        };
+        retrieveZone();
+    }, []);
 
     return (
         <View style={{height: '100%'}}>
