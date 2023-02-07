@@ -14,7 +14,9 @@
             "developmentClient": true
         },
         "production": {
-            "env": { "ANDROID_SDK_ROOT": "C:\\Users\\ruben\\AppData\\Local\\Android\\Sdk" }
+            "android": {
+                "buildType": "apk"
+            }
         }
     },
     "cli": {
