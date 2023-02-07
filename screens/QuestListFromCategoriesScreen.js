@@ -1,7 +1,7 @@
 import { Skeleton, Divider, Input, Icon } from "native-base";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { MaterialIcons } from "@expo/vector-icons";
-import { StyleSheet, Text, TouchableOpacity, ScrollView, Image, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, ScrollView, Image, View, RefreshControl } from 'react-native';
 
 import combatPower from '../library/combatPower';
 import pokestopImages from '../library/pokestopImages';
@@ -54,6 +54,12 @@ export default function QuestCategoriesScreen({ route, navigation }) {
         }
     };
 
+    const onRefresh = useCallback(() => {
+        setLoading(true);
+        getQuestsFromGithubRawFileByCategory()
+        setLoading(false);
+    }, []);
+
     useEffect(() => {
         getQuestsFromGithubRawFileByCategory();
     }, []);
@@ -70,7 +76,9 @@ export default function QuestCategoriesScreen({ route, navigation }) {
             />
             <Divider mt="4" _light={{ bg: "muted.800" }} _dark={{ bg: "muted.50" }} />
             
-            <ScrollView style={{ width:'100%', paddingHorizontal: '2%', paddingTop: 10 }}>
+            <ScrollView style={{ width:'100%', paddingHorizontal: '2%', paddingTop: 10 }}
+            refreshControl={ <RefreshControl refreshing={isLoading} onRefresh={onRefresh} /> }
+            >
                 {isLoading ? (
                     <View>
                         {[...Array(12)].map((_, i) => (
@@ -94,7 +102,8 @@ export default function QuestCategoriesScreen({ route, navigation }) {
                         >
                             <View style={styles.rowContainerFullWidth}>
                                 <View style={styles.textContainer}>
-                                    <Text style={ styles.textPrimary }>{quest.quest_description}</Text>
+                                    <Text style={ styles.textPrimary }>{quest.quest_description}
+                                    </Text>
                                     <Text style={ styles.textSecondary }>Nº Pokestops: { quest.pokestops.length ?? 0 }</Text>
                                 </View>
                                 <View>
