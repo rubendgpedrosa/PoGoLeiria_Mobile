@@ -948,6 +948,70 @@ function pokestopImages(imageName) {
       return require('../assets/pokestops/091456d950da38849bd7ae900f16667916.jpg');
     case '40edfe553012431cbd444d3c3efcd87e16':
       return require('../assets/pokestops/40edfe553012431cbd444d3c3efcd87e16.jpg');
+
+    case 'abomasnowmegaenergy':
+      return require('../assets/rewards/abomasnowmegaenergy.png');
+    case 'absolmegaenergy':
+      return require('../assets/rewards/absolmegaenergy.png');
+    case 'aerodactylmegaenergy':
+      return require('../assets/rewards/aerodactylmegaenergy.png');
+    case 'aggronmegaenergy':
+      return require('../assets/rewards/aggronmegaenergy.png');
+    case 'alakazammegaenergy':
+      return require('../assets/rewards/alakazammegaenergy.png');
+    case 'altariamegaenergy':
+      return require('../assets/rewards/altariamegaenergy.png');
+    case 'venusaurmegaenergy':
+      return require('../assets/rewards/venusaurmegaenergy.png');
+    case 'charizardmegaenergy':
+      return require('../assets/rewards/charizardmegaenergy.png');
+    case 'blastoisemegaenergy':
+      return require('../assets/rewards/blastoisemegaenergy.png');
+    case 'beedrillmegaenergy':
+      return require('../assets/rewards/beedrillmegaenergy.png');
+    case 'pidgeotmegaenergy':
+      return require('../assets/rewards/pidgeotmegaenergy.png');
+    case 'alakazammegaenergy':
+      return require('../assets/rewards/alakazammegaenergy.png');
+    case 'slowbromegaenergy':
+      return require('../assets/rewards/slowbromegaenergy.png');
+    case 'gengarmegaenergy':
+      return require('../assets/rewards/gengarmegaenergy.png');
+    case 'kangaskhanmegaenergy':
+      return require('../assets/rewards/kangaskhanmegaenergy.png');
+    case 'gyaradosmegaenergy':
+      return require('../assets/rewards/gyaradosmegaenergy.png');
+    case 'latiasmegaenergy':
+      return require('../assets/rewards/latiasmegaenergy.png');
+    case 'latiosmegaenergy':
+      return require('../assets/rewards/latiosmegaenergy.png');
+    case 'ampharosmegaenergy':
+      return require('../assets/rewards/ampharosmegaenergy.png');
+    case 'houndoommegaenergy':
+      return require('../assets/rewards/houndoommegaenergy.png');
+    case 'blazikenmegaenergy':
+      return require('../assets/rewards/blazikenmegaenergy.png');
+    case 'swampertmegaenergy':
+      return require('../assets/rewards/swampertmegaenergy.png');
+    case 'sceptilemegaenergy':
+      return require('../assets/rewards/sceptilemegaenergy.png');
+    case 'steelixmegaenergy':
+      return require('../assets/rewards/steelixmegaenergy.png');
+    case 'sableyemegaenergy':
+      return require('../assets/rewards/sableyemegaenergy.png');
+    case 'salamencemegaenergy':
+      return require('../assets/rewards/salamencemegaenergy.png');
+    case 'scizormegaenergy':
+      return require('../assets/rewards/scizormegaenergy.png');
+    case 'lopunnymegaenergy':
+      return require('../assets/rewards/lopunnymegaenergy.png');
+    case 'glaliemegaenergy':
+      return require('../assets/rewards/glaliemegaenergy.png');
+    case 'banettemegaenergy':
+      return require('../assets/rewards/banettemegaenergy.png');
+
+
+
     default:
       return require('../assets/rewards/default.jpg');
   }

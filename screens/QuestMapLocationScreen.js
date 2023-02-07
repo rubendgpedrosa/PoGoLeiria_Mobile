@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
     },
     carouselItemContainer: {
         width: Dimensions.get('window').width - 20,
-        height: Dimensions.get('window').height / 6,
+        height: Dimensions.get('window').height / 5,
         backgroundColor: '#141414',
         borderRadius: 20,
         margin: 10,

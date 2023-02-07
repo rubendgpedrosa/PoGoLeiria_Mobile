@@ -54,6 +54,19 @@ export default function QuestCategoriesScreen({ route, navigation }) {
         }
     };
 
+    const handleRewardImage = (quest) => {
+        if (quest.quest_reward_type === 'Pokemon') {
+            return pokestopImages(quest.quest_reward_pokemon_name.toLowerCase().replace(/\s/g, ""));
+        } else if (quest.quest_reward_type === 'Energy') {
+            return pokestopImages(
+                quest.quest_reward_pokemon_name.toLowerCase().replace(/\s/g, "") +
+                quest.quest_reward_item_name.toLowerCase().replace(/\s/g, "")
+            );
+        } else {
+            return pokestopImages(quest.quest_reward_item_name.toLowerCase().replace(/\s/g, ""));
+        }
+    }
+
     const onRefresh = useCallback(() => {
         setLoading(true);
         getQuestsFromGithubRawFileByCategory()
@@ -107,10 +120,7 @@ export default function QuestCategoriesScreen({ route, navigation }) {
                                     <Text style={ styles.textSecondary }>Nº Pokestops: { quest.pokestops.length ?? 0 }</Text>
                                 </View>
                                 <View>
-                                    <Image style={Object.assign({}, styles.rewardImage, categoryColor )} resizeMode='contain' source={
-                                        quest.quest_reward_type === 'Pokemon' ? 
-                                        pokestopImages(quest.quest_reward_pokemon_name.replace(/\s/g, '').toLowerCase()) :
-                                        pokestopImages(quest.quest_reward_item_name.replace(/\s/g, '').toLowerCase()) } />
+                                    <Image style={Object.assign({}, styles.rewardImage, categoryColor )} resizeMode='contain' source={handleRewardImage(quest) } />
                                     {quest.quest_reward_type === 'Pokemon' ?
                                     <Text style={styles.badgeRewardImage}>
                                         {combatPower[quest.pokestops[0].pokemon_id].replace(/\,/g,'')}
