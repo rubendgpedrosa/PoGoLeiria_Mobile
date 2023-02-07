@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Image, Dimensions, FlatList } from 'react-native';
 import MapView, { Callout, Marker, PROVIDER_GOOGLE } from 'react-native-maps';
-import * as Location from 'expo-location';
 
+import * as Location from 'expo-location';
 import pokestopImages from '../library/pokestopImages';
 
 export default function QuestMapLocationScreen({ route, navigation }) {
@@ -23,8 +23,6 @@ export default function QuestMapLocationScreen({ route, navigation }) {
     
         let location = await Location.getCurrentPositionAsync({});
         setLocation(location);
-        //setRegion({ mapRegion: { latitude: location.coords.latitude, longitude: location.coords.longitude, latitudeDelta: 0.0922, longitudeDelta: 0.0421 } });
-        //changeRegion(location.coords.latitude, location.coords.longitude);
         })();
     }, []);
 
@@ -141,7 +139,7 @@ const styles = StyleSheet.create({
     },
     carouselItemContainer: {
         width: Dimensions.get('window').width - 20,
-        height: Dimensions.get('window').height / 5,
+        height: Dimensions.get('window').height / 6,
         backgroundColor: '#141414',
         borderRadius: 20,
         margin: 10,
