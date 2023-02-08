@@ -1,17 +1,20 @@
 import { Skeleton, Divider, Input, Icon } from "native-base";
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useContext } from 'react';
 import { MaterialIcons } from "@expo/vector-icons";
 import { StyleSheet, Text, TouchableOpacity, ScrollView, Image, View, RefreshControl } from 'react-native';
 
 import combatPower from '../library/combatPower';
 import pokestopImages from '../library/pokestopImages';
+import axios from "axios";
+
+import { FilterContext } from "../store/FilterContext";
 
 export default function QuestCategoriesScreen({ route, navigation }) {
-    const rewards = require('../assets/rewards/nanab.png');
     const { categorySelected, categoryColor, selectedZone } = route.params;
     const [quests, setQuests] = useState([]);
     const [isLoading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
+    const { filter } = useContext(FilterContext);
 
     const handleClearSearchTerm = () => {
         setSearchTerm('');
@@ -23,12 +26,21 @@ export default function QuestCategoriesScreen({ route, navigation }) {
     const getQuestsFromGithubRawFileByCategory = async () => {
         try {
             const response = await (async () => {
-                let url = 'https://raw.githubusercontent.com/rubendgpedrosa/PoGoLeiria_Data/main/' + categorySelected.toLowerCase() + '.json'
+                let url = 'https://raw.githubusercontent.com/rubendgpedrosa/PoGoLeiria_Data/main/' + categorySelected.toLowerCase() + '.json' + `?date${Date.now()}`
                 if (categorySelected.toLowerCase().includes('buddy')) {
-                    url = 'https://raw.githubusercontent.com/rubendgpedrosa/PoGoLeiria_Data/main/buddy.json'
+                    url = 'https://raw.githubusercontent.com/rubendgpedrosa/PoGoLeiria_Data/main/buddy.json' + `?date${Date.now()}`
                 }
-                const response = await fetch(url);
-                return response.json();
+                let myHeaders = new Headers();
+                myHeaders.set('Accept', 'application/json');
+                myHeaders.set('Content-Type', 'application/json');
+                myHeaders.set('Cache-Control', 'no-cache, no-store, must-revalidate');
+                myHeaders.set('Pragma', 'no-cache');
+                myHeaders.set('Expires', '0');
+                const response = await axios.get(url, {
+                    method: 'GET',
+                    headers: myHeaders
+                });
+                return response.data;
             })();
     
 
@@ -56,7 +68,7 @@ export default function QuestCategoriesScreen({ route, navigation }) {
 
     const handleRewardImage = (quest) => {
         if (quest.quest_reward_type === 'Pokemon') {
-            return pokestopImages(quest.quest_reward_pokemon_name.toLowerCase().replace(/\s/g, ""));
+            return pokestopImages(quest.pokestops[0].pokemon_id.toString().padStart(3, "0"));
         } else if (quest.quest_reward_type === 'Energy') {
             return pokestopImages(
                 quest.quest_reward_pokemon_name.toLowerCase().replace(/\s/g, "") +
@@ -70,7 +82,6 @@ export default function QuestCategoriesScreen({ route, navigation }) {
     const onRefresh = useCallback(() => {
         setLoading(true);
         getQuestsFromGithubRawFileByCategory()
-        setLoading(false);
     }, []);
 
     useEffect(() => {
@@ -88,7 +99,6 @@ export default function QuestCategoriesScreen({ route, navigation }) {
             value={searchTerm}
             />
             <Divider mt="4" _light={{ bg: "muted.800" }} _dark={{ bg: "muted.50" }} />
-            
             <ScrollView style={{ width:'100%', paddingHorizontal: '2%', paddingTop: 10 }}
             refreshControl={ <RefreshControl refreshing={isLoading} onRefresh={onRefresh} /> }
             >
@@ -107,7 +117,17 @@ export default function QuestCategoriesScreen({ route, navigation }) {
                     quests.filter((quest) =>
                         quest.quest_description.toLowerCase().includes(searchTerm.toLowerCase()) ||
                         quest.quest_reward.toLowerCase().includes(searchTerm.toLowerCase())
-                    ).map((quest, index) => (
+                    )
+                    .filter((quest) => {
+                        if (filter === 'all') {
+                            return true;
+                        } else if (filter === 'pokemon') {
+                            return quest.quest_reward_type === 'Pokemon';
+                        } else if (filter === 'items') {
+                            return quest.quest_reward_type !== 'Pokemon';
+                        }
+                    })
+                    .map((quest, index) => (
                         <TouchableOpacity 
                         key={index}
                         onPress={() => navigation.navigate('QuestMapLocationScreen', { category: quest })} 

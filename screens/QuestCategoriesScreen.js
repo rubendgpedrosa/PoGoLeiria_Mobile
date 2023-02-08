@@ -48,13 +48,17 @@ export default function QuestCategoriesScreen({ navigation }) {
             <Flex direction="row" style={ styles.rowTopCategoryScreen }>
             <View style={styles.infoBanner}>
                 <Text style={styles.infoText}>
-                    {selectedZone === null? "Seleciona uma zona antes de começar" : "Zona selecionada: " + selectedZone.charAt(0).toUpperCase() + selectedZone.slice(1)}
+                    {selectedZone === null? "Seleciona uma zona antes de começar" : "Filtrar quests por zona"}
                 </Text>
             </View>
             </Flex>
             <Flex direction="row" style={Object.assign({}, styles.rowTopCategoryScreen, { paddingBottom: 10 })}>
-                <TouchableOpacity disabled={selectedZone === "leiria"} style={styles.buttonZoneSelection} onPress={() => handleSelectedZone("leiria")}><Text style={styles.buttonZoneSelectionText}>Leiria</Text></TouchableOpacity>
-                <TouchableOpacity disabled={selectedZone === "marinha"}  style={styles.buttonZoneSelection} onPress={() => handleSelectedZone("marinha")}><Text style={styles.buttonZoneSelectionText}>Marinha</Text></TouchableOpacity>
+                <TouchableOpacity disabled={selectedZone === "leiria"} style={[styles.buttonZoneSelection, 
+                    selectedZone !== "leiria" ? { opacity: 0.3 } : { opacity: 1 }
+                ]} onPress={() => handleSelectedZone("leiria")}><Text style={styles.buttonZoneSelectionText}>Leiria</Text></TouchableOpacity>
+                <TouchableOpacity disabled={selectedZone === "marinha"}  style={[styles.buttonZoneSelection, 
+                    selectedZone !== "marinha" ? { opacity: 0.3 } : { opacity: 1 }
+                ]} onPress={() => handleSelectedZone("marinha")}><Text style={styles.buttonZoneSelectionText}>Marinha</Text></TouchableOpacity>
             </Flex>
             <FlatList
             data={questsTypeCards}
