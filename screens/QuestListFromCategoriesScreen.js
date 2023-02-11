@@ -26,9 +26,9 @@ export default function QuestCategoriesScreen({ route, navigation }) {
     const getQuestsFromGithubRawFileByCategory = async () => {
         try {
             const response = await (async () => {
-                let url = 'https://raw.githubusercontent.com/rubendgpedrosa/PoGoLeiria_Data/main/' + categorySelected.toLowerCase() + '.json' + `?date${Date.now()}`
+                let url = `https://pogoleiria-default-rtdb.europe-west1.firebasedatabase.app/${categorySelected.toLowerCase()}.json`
                 if (categorySelected.toLowerCase().includes('buddy')) {
-                    url = 'https://raw.githubusercontent.com/rubendgpedrosa/PoGoLeiria_Data/main/buddy.json' + `?date${Date.now()}`
+                    url = `https://pogoleiria-default-rtdb.europe-west1.firebasedatabase.app/buddy.json`
                 }
                 let myHeaders = new Headers();
                 myHeaders.set('Accept', 'application/json');
@@ -39,24 +39,27 @@ export default function QuestCategoriesScreen({ route, navigation }) {
                 const response = await axios.get(url, {
                     method: 'GET',
                     headers: myHeaders
+                }).catch(error => {
+                    console.log(error);
                 });
                 return response.data;
             })();
     
 
             let filteredResponse = [];
-            if(selectedZone === "leiria"){
-                filteredResponse = response.map(task => {
-                    return {...task, pokestops: task.pokestops.filter(pokestop => !String(pokestop.longitude).startsWith("-8.9"))};
-                });
+            if (response !== null && typeof response[0] === 'object') {
+                if(selectedZone === "leiria"){
+                    filteredResponse = response.map(task => {
+                        return {...task, pokestops: task.pokestops.filter(pokestop => !String(pokestop.longitude).startsWith("-8.9"))};
+                    });
+                }
+                if(selectedZone === "marinha"){
+                    filteredResponse = response.map(task => {
+                        return {...task, pokestops: task.pokestops.filter(pokestop => String(pokestop.longitude).startsWith("-8.9"))};
+                    });
+                }
+                filteredResponse = filteredResponse.filter(task => task.pokestops.length > 0);
             }
-            if(selectedZone === "marinha"){
-                filteredResponse = response.map(task => {
-                    return {...task, pokestops: task.pokestops.filter(pokestop => String(pokestop.longitude).startsWith("-8.9"))};
-                });
-            }
-
-            filteredResponse = filteredResponse.filter(task => task.pokestops.length > 0);
 
             setQuests(filteredResponse);
         } catch (error) {
@@ -68,7 +71,7 @@ export default function QuestCategoriesScreen({ route, navigation }) {
 
     const handleRewardImage = (quest) => {
         if (quest.quest_reward_type === 'Pokemon') {
-            return pokestopImages(quest.pokestops[0].pokemon_id.toString().padStart(3, "0"));
+            return pokestopImages(quest.quest_reward_pokemon_id.toString().padStart(3, "0"));
         } else if (quest.quest_reward_type === 'Energy') {
             return pokestopImages(
                 quest.quest_reward_pokemon_name.toLowerCase().replace(/\s/g, "") +
@@ -126,6 +129,19 @@ export default function QuestCategoriesScreen({ route, navigation }) {
                         } else if (filter === 'items') {
                             return quest.quest_reward_type !== 'Pokemon';
                         }
+                    }).length ? 
+                    quests.filter((quest) =>
+                        quest.quest_description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                        quest.quest_reward.toLowerCase().includes(searchTerm.toLowerCase())
+                    )
+                    .filter((quest) => {
+                        if (filter === 'all') {
+                            return true;
+                        } else if (filter === 'pokemon') {
+                            return quest.quest_reward_type === 'Pokemon';
+                        } else if (filter === 'items') {
+                            return quest.quest_reward_type !== 'Pokemon';
+                        }
                     })
                     .map((quest, index) => (
                         <TouchableOpacity 
@@ -143,17 +159,18 @@ export default function QuestCategoriesScreen({ route, navigation }) {
                                     <Image style={Object.assign({}, styles.rewardImage, categoryColor )} resizeMode='contain' source={handleRewardImage(quest) } />
                                     {quest.quest_reward_type === 'Pokemon' ?
                                     <Text style={styles.badgeRewardImage}>
-                                        {combatPower[quest.pokestops[0].pokemon_id].replace(/\,/g,'')}
+                                        {combatPower[quest.quest_reward_pokemon_id].replace(/\,/g,'')}
                                     </Text> :
                                     <Text style={styles.badgeRewardImage}>
                                         x{quest.quest_reward_amount}
                                     </Text> 
                                     }
                                 </View>
-
                             </View>
                         </TouchableOpacity>
-                    ))
+                    )) : (
+                        <Text style={{color: '#c0c0c0' }}>No Results</Text>
+                    )
                 ) : (
                     <Text style={{color: '#c0c0c0' }}>No Results</Text>
                 )}
