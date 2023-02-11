@@ -143,6 +143,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#141414',
         borderRadius: 20,
         margin: 10,
+        marginBottom: 28,
         overflow: 'hidden',
         alignItems: 'center',
         justifyContent: 'center',
