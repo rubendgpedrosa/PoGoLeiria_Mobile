@@ -1,22 +1,17 @@
 import { Flex } from "native-base";
 import { useState, useEffect } from 'react';
-import { StyleSheet, Text, TouchableOpacity, ImageBackground, View, FlatList } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, ImageBackground, View, FlatList, Linking } from 'react-native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function QuestCategoriesScreen({ navigation }) {
-    let test = 'starpiece';
-    const catchingImage = require('../assets/categories/catching.png');
-    const throwingImage = require('../assets/categories/pokeballgroup.png');
-    const battlingImage = require('../assets/categories/raidpass.png');
-    const buddyImage = require('../assets/categories/poliwag.png');
-    const othersImage = require(`../assets/categories/${test}.png`);
     const questsTypeCards = [
-        { name: "CATCHING", image: catchingImage, style: { backgroundColor: '#f5c032' } },
-        { name: "THROWING", image: throwingImage, style: { backgroundColor: '#388f74' } },
-        { name: "BATTLING", image: battlingImage, style: { backgroundColor: '#e77043' } },
-        { name: "BUDDY/FRIENDS", image: buddyImage, style: { backgroundColor: '#7a5ccf' } },
-        { name: "OTHERS", image: othersImage, style: { backgroundColor: '#d36d95' } },
+        { name: "Catching", image: require(`../assets/categories/catching.png`), style: { backgroundColor: '#6cbd63' } },
+        { name: "Throwing", image: require(`../assets/categories/throwing.png`), style: { backgroundColor: '#ed7769' } },
+        { name: "Battling", image: require(`../assets/categories/battling.png`), style: { backgroundColor: '#67acf6' } },
+        { name: "Buddy/Friends", image: require(`../assets/categories/buddy.png`), style: { backgroundColor: '#b265cf' } },
+        { name: "Others", image: require(`../assets/categories/others.png`), style: { backgroundColor: '#facd49' } },
+        { name: "Mapa", image: require(`../assets/categories/mapa.png`), style: { backgroundColor: '#141414' } },
     ];
     const [selectedZone, setSelectedZone] = useState('leiria');
 
@@ -27,6 +22,10 @@ export default function QuestCategoriesScreen({ navigation }) {
         } catch (e) {
             console.error(e);
         }
+    }
+
+    const openPoGoLeiria = () => {
+        Linking.openURL('https://pogoleiria.pt');
     }
 
     useEffect(() => {
@@ -46,18 +45,18 @@ export default function QuestCategoriesScreen({ navigation }) {
     return (
         <View style={{height: '100%'}}>
             <Flex direction="row" style={ styles.rowTopCategoryScreen }>
-            <View style={styles.infoBanner}>
-                <Text style={styles.infoText}>
-                    {selectedZone === null? "Seleciona uma zona antes de começar" : "Filtrar quests por zona"}
-                </Text>
-            </View>
+                <View style={styles.infoBanner}>
+                    <Text style={styles.infoText}>
+                        {selectedZone === null? "Seleciona uma zona antes de começar" : "Seleciona uma zona a explorar"}
+                    </Text>
+                </View>
             </Flex>
             <Flex direction="row" style={Object.assign({}, styles.rowTopCategoryScreen, { paddingBottom: 10 })}>
                 <TouchableOpacity disabled={selectedZone === "leiria"} style={[styles.buttonZoneSelection, 
-                    selectedZone !== "leiria" ? { opacity: 0.3 } : { opacity: 1 }
+                    selectedZone !== "leiria" ? { opacity: 0.3 } : { opacity: 1, backgroundColor: '#141414' }
                 ]} onPress={() => handleSelectedZone("leiria")}><Text style={styles.buttonZoneSelectionText}>Leiria</Text></TouchableOpacity>
                 <TouchableOpacity disabled={selectedZone === "marinha"}  style={[styles.buttonZoneSelection, 
-                    selectedZone !== "marinha" ? { opacity: 0.3 } : { opacity: 1 }
+                    selectedZone !== "marinha" ? { opacity: 0.3 } : { opacity: 1, backgroundColor: '#141414' }
                 ]} onPress={() => handleSelectedZone("marinha")}><Text style={styles.buttonZoneSelectionText}>Marinha</Text></TouchableOpacity>
             </Flex>
             <FlatList
@@ -66,17 +65,24 @@ export default function QuestCategoriesScreen({ navigation }) {
             style={styles.scrollViewContainer}
             renderItem={({ item: questTypeCard }) => (
                 <TouchableOpacity
-                    style={[styles.cardContainer, styles.darkerGrayColor]}
-                    onPress={() => navigation.navigate('QuestListFromCategoriesScreen',
+                    style={Object.assign({}, styles.cardContainer, questTypeCard.style)}
+                    onPress={() => questTypeCard.name === "Mapa" ? openPoGoLeiria() : navigation.navigate('QuestListFromCategoriesScreen',
                     { categorySelected: questTypeCard.name, categoryColor: questTypeCard.style, selectedZone: selectedZone }
                 )}>
                     <ImageBackground
-                        resizeMode="cover"
-                        source={questTypeCard.image}
-                        style={styles.image}></ImageBackground>
-                    <View style={styles.textContainer}>
-                        <Text style={Object.assign({}, styles.textBackground, questTypeCard.style)}>{questTypeCard.name}</Text>
-                    </View>
+                    resizeMode="contain"
+                    source={questTypeCard.image}
+                    style={{ 
+                        width: '100%', 
+                        height: 100, 
+                        borderRadius: 10, 
+                        position: 'absolute', 
+                        bottom: -15, 
+                        right: -55, 
+                        opacity: 0.3,
+                    }}
+                    />
+                    <Text style={styles.textBackground}>{questTypeCard.name}</Text>
                 </TouchableOpacity>
             )}
             />
@@ -87,37 +93,38 @@ export default function QuestCategoriesScreen({ navigation }) {
 
 const styles = StyleSheet.create({
     scrollViewContainer: {
-        backgroundColor: '#070707',
+        backgroundColor: '#272727',
     },
     darkerGrayColor: {
         backgroundColor: '#141414',
     },
     cardContainer: {
         width: '45%',
+        height: 90,
         marginHorizontal: '2.5%',
         marginVertical: 10,
         borderRadius: 10,
+        overflow: 'hidden',
     },
     image: {
-        height: 80,
-        width: 100,
         alignSelf: 'center',
         resizeMode: 'contain',
-        padding: 10,
+        width: '100%',
+        height: '100%',
+        position: 'absolute',
+        bottom: 0,
+        right: 0,
     },
     textBackground: {
         fontWeight: '900',
-        fontSize: 16,
+        fontSize: 24,
         color: 'white',
-        textAlign: 'center',
-        borderBottomRightRadius: 10,
-        borderBottomLeftRadius: 10,
-        padding: 5,
+        position: 'absolute',
+        bottom: 10,
+        left: 10,
     },
     infoBanner: {
-        backgroundColor: 'rgba(135, 206, 235, 0.1)',
-        borderWidth: 1,
-        borderColor: '#87CEEB',
+        backgroundColor: '#87CEEB',
         padding: 10,
         alignItems: 'center',
         justifyContent: 'center',
@@ -127,26 +134,24 @@ const styles = StyleSheet.create({
         width: '100%',
     },
     infoText: {
-        color: '#87CEEB',
+        color: 'white',
         fontSize: 16,
     },
     rowTopCategoryScreen: {
         alignItems: 'center', 
         justifyContent: 'center',
-        backgroundColor: '#070707', 
+        backgroundColor: '#272727', 
+        paddingHorizontal: 10,
     },
     buttonZoneSelection: {
-        backgroundColor: '#141414',
-        borderWidth: 1,
-        borderColor: 'white',
-        padding: 10,
+        padding: 12,
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: 10,
+        borderRadius: 50,
         margin: 10,
         width: '40%',
     },
     buttonZoneSelectionText: {
         color: 'white',
-    },
+    }
 });

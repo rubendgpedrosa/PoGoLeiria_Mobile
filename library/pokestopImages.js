@@ -2382,7 +2382,7 @@ function pokestopImages(imageName) {
       return require('../assets/rewards/335.png');
 
     default:
-      return require('../assets/rewards/default.jpg');
+      return require('../assets/rewards/default.png');
   }
 }
 
