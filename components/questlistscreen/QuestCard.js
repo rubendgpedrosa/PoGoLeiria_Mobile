@@ -1,4 +1,4 @@
-import { Text, TouchableOpacity, Image } from "react-native";
+import { Text, TouchableOpacity, ImageBackground } from "react-native";
 import { StyleSheet, View } from "react-native";
 
 export default function QuestCard(props) {
@@ -21,8 +21,8 @@ export default function QuestCard(props) {
             {props.item.quest_reward}
           </Text>
         </View>
-        <View style={{width: 60}}>
-          <Image
+        <View style={{width: 60, overflow: "hidden"}}>
+          <ImageBackground
             style={Object.assign({}, styles.rewardImage, props.categoryColor)}
             resizeMode="contain"
             source={props.handleRewardImage(props.item)}
@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
       justifyContent: "center",
       backgroundColor: "#141414",
       marginBottom: 10,
+      overflow: 'hidden'
     },
     textContainer: {
       flex: 1,
@@ -71,13 +72,12 @@ const styles = StyleSheet.create({
     textNumberCount: {
         fontSize: 13,
         color: "#EEE5E9",
-
     },
     rewardImage: {
       width: 60,
       height: 70,
-      borderRadius: 10,
       backgroundColor: "#f5c032",
+      borderRadius: 10,
     },
     rowContainerFullWidth: {
       flexDirection: "row",

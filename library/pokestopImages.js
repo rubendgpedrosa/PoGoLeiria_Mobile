@@ -2,186 +2,66 @@ function pokestopImages(imageName) {
   switch (imageName) {
     case 'greatball':
       return require('../assets/rewards/greatball.png');
-    case 'bellsprout':
-      return require('../assets/rewards/bellsprout.png');
-    case 'meowth':
-      return require('../assets/rewards/meowth.png');
-    case 'petilil':
-      return require('../assets/rewards/petilil.png');
     case 'beastball':
       return require('../assets/rewards/beastball.png');
-    case 'clamperl':
-      return require('../assets/rewards/clamperl.png');
-    case 'bagon':
-      return require('../assets/rewards/bagon.png');
     case 'stardust':
       return require('../assets/rewards/stardust.png');
     case 'luckyegg':
       return require('../assets/rewards/luckyegg.png');
     case 'masterball':
       return require('../assets/rewards/masterball.png');
-    case 'spinda':
-      return require('../assets/rewards/spinda.png');
     case 'starpiece':
       return require('../assets/rewards/starpiece.png');
-    case 'omanyte':
-      return require('../assets/rewards/omanyte.png');
-    case 'rufflet':
-      return require('../assets/rewards/rufflet.png');
-    case 'eevee':
-      return require('../assets/rewards/eevee.png');
     case 'fasttm':
       return require('../assets/rewards/fasttm.png');
-    case 'weezing':
-      return require('../assets/rewards/weezing.png');
-    case 'murkrow':
-      return require('../assets/rewards/murkrow.png');
-    case 'hoppip':
-      return require('../assets/rewards/hoppip.png');
-    case 'pidgeot':
-      return require('../assets/rewards/pidgeot.png');
-    case 'oddish':
-      return require('../assets/rewards/oddish.png');
-    case 'anorith':
-      return require('../assets/rewards/anorith.png');
-    case 'minun':
-      return require('../assets/rewards/minun.png');
-    case 'gligar':
-      return require('../assets/rewards/gligar.png');
-    case 'magikarp':
-      return require('../assets/rewards/magikarp.png');
-    case 'lileep':
-      return require('../assets/rewards/lileep.png');
-    case 'gible':
-      return require('../assets/rewards/gible.png');
     case 'mysteriouscomponent':
       return require('../assets/rewards/mysteriouscomponent.png');
     case 'rarecandy':
       return require('../assets/rewards/rarecandy.png');
-    case 'plusle':
-      return require('../assets/rewards/plusle.png');
-    case 'hippopotas':
-      return require('../assets/rewards/hippopotas.png');
     case 'pokéball':
       return require('../assets/rewards/pokéball.png');
-    case 'lickitung':
-      return require('../assets/rewards/lickitung.png');
-    case 'aerodactyl':
-      return require('../assets/rewards/aerodactyl.png');
     case 'potion':
       return require('../assets/rewards/potion.png');
     case 'superpotion':
       return require('../assets/rewards/superpotion.png');
-    case 'roselia':
-      return require('../assets/rewards/roselia.png');
-    case 'poliwag':
-      return require('../assets/rewards/poliwag.png');
-    case 'sudowoodo':
-      return require('../assets/rewards/sudowoodo.png');
-    case 'dratini':
-      return require('../assets/rewards/dratini.png');
     case 'upgrade':
       return require('../assets/rewards/upgrade.png');
-    case 'emolga':
-      return require('../assets/rewards/emolga.png');
-    case 'torchic':
-      return require('../assets/rewards/torchic.png');
-    case 'feebas':
-      return require('../assets/rewards/feebas.png');
-    case 'dunsparce':
-      return require('../assets/rewards/dunsparce.png');
     case 'nanab':
       return require('../assets/rewards/nanab.png');
-    case 'ralts':
-      return require('../assets/rewards/ralts.png');
-    case 'stunfisk':
-      return require('../assets/rewards/stunfisk.png');
-    case 'beldum':
-      return require('../assets/rewards/beldum.png');
-    case 'mantine':
-      return require('../assets/rewards/mantine.png');
-    case 'charmander':
-      return require('../assets/rewards/charmander.png');
     case 'hyperpotion':
       return require('../assets/rewards/hyperpotion.png');
     case 'ultraball':
       return require('../assets/rewards/ultraball.png');
-    case 'mudkip':
-      return require('../assets/rewards/mudkip.png');
-    case 'bunnelby':
-      return require('../assets/rewards/bunnelby.png');
-    case 'glameow':
-      return require('../assets/rewards/glameow.png');
     case 'revive':
       return require('../assets/rewards/revive.png');
-    case 'skitty':
-      return require('../assets/rewards/skitty.png');
     case 'maxpotion':
       return require('../assets/rewards/maxpotion.png');
-    case 'chikorita':
-      return require('../assets/rewards/chikorita.png');
-    case 'treecko':
-      return require('../assets/rewards/treecko.png');
     case 'razzberry':
       return require('../assets/rewards/razzberry.png');
-    case 'helioptile':
-      return require('../assets/rewards/helioptile.png');
-    case 'snorlax':
-      return require('../assets/rewards/snorlax.png');
-    case 'yanma':
-      return require('../assets/rewards/yanma.png');
-    case 'charizard':
-      return require('../assets/rewards/charizard.png');
     case 'goldenrazzberry':
       return require('../assets/rewards/goldenrazzberry.png');
-    case 'voltorb':
-      return require('../assets/rewards/voltorb.png');
-    case 'totodile':
-      return require('../assets/rewards/totodile.png');
     case 'nanabberry':
       return require('../assets/rewards/nanabberry.png');
     case 'kingsrock':
       return require('../assets/rewards/kingsrock.png');
-    case 'bulbasaur':
-      return require('../assets/rewards/bulbasaur.png');
-    case 'cyndaquil':
-      return require('../assets/rewards/cyndaquil.png');
-    case 'exeggutor':
-      return require('../assets/rewards/exeggutor.png');
-    case 'miltank':
-      return require('../assets/rewards/miltank.png');
     case 'pinapberry':
       return require('../assets/rewards/pinapberry.png');
     case 'premierball':
       return require('../assets/rewards/premierball.png');
     case 'metalcoat':
       return require('../assets/rewards/metalcoat.png');
-    case 'kabuto':
-      return require('../assets/rewards/kabuto.png');
     case 'dragonscale':
       return require('../assets/rewards/dragonscale.png');
-    case 'onix':
-      return require('../assets/rewards/onix.png');
     case 'chargedtm':
       return require('../assets/rewards/chargedtm.png');
     case 'megaenergy':
       return require('../assets/rewards/megaenergy.png');
-    case 'squirtle':
-      return require('../assets/rewards/squirtle.png');
     case 'maxrevive':
       return require('../assets/rewards/maxrevive.png');
-    case 'jynx':
-      return require('../assets/rewards/jynx.png');
-    case 'vulpix':
-      return require('../assets/rewards/vulpix.png');
-    case 'snover':
-      return require('../assets/rewards/snover.png');
     case 'sunstone':
       return require('../assets/rewards/sunstone.png');
     case 'silverpinapberry':
       return require('../assets/rewards/silverpinapberry.png');
-    case 'snubbull':
-      return require('../assets/rewards/snubbull.png');
     case '95d31038518e4c78ab66fdb7b2c5a65f16':
       return require('../assets/pokestops/95d31038518e4c78ab66fdb7b2c5a65f16.jpg');
     case '5d26a723ff7a4e7aa901e7f1b9179b5d16':
@@ -2382,7 +2262,7 @@ function pokestopImages(imageName) {
       return require('../assets/rewards/335.png');
 
     default:
-      return require('../assets/rewards/default.jpg');
+      return require('../assets/rewards/default.png');
   }
 }
 
