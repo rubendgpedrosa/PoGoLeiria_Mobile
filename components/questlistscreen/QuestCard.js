@@ -77,7 +77,6 @@ const styles = StyleSheet.create({
       width: 60,
       height: 70,
       backgroundColor: "#f5c032",
-      borderRadius: 10,
     },
     rowContainerFullWidth: {
       flexDirection: "row",
@@ -89,7 +88,7 @@ const styles = StyleSheet.create({
       bottom: 0,
       textAlign: "center",
       backgroundColor: "#141414",
-      opacity: 0.8,
+      opacity: 0.9,
       width: "100%",
       fontWeight: "bold",
     },
