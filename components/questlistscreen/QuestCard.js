@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
       color: "#EEE5E9",
     },
     textNumberCount: {
-        fontSize: 11,
+        fontSize: 13,
         color: "#EEE5E9",
 
     },
