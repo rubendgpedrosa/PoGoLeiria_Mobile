@@ -2,14 +2,14 @@ import { useContext, useEffect } from 'react';
 import { View, Image, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { FilterContext } from '../store/FilterContext';
+import { FilterContext } from '../../store/FilterContext';
 
 export default function TopbarFilter({}) {
     const { filter, setFilter } = useContext(FilterContext);
 
-    const pokemon = require('../assets/pokemon.png');
-    const items = require('../assets/items.png');
-    const all = require('../assets/all.png');
+    const pokemon = require('../../assets/pokemon.png');
+    const items = require('../../assets/items.png');
+    const all = require('../../assets/all.png');
 
     useEffect(() => {
         const retrieveFilter = async () => {
