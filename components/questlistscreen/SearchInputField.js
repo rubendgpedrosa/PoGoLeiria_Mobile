@@ -13,7 +13,7 @@ export default function SearchInputField(props) {
                 width: Dimensions.get("window").width * 0.96,
                 backgroundColor: "#141414",
                 borderRadius: 50,
-                marginBottom: 4,
+                marginBottom: 16,
             }}>
             <Input
             placeholder="Quest Name / Reward"

@@ -106,6 +106,8 @@ export default function QuestMapLocationScreen({ route, navigation }) {
                 key={index}
                 pokestopId={item.pokestop_id}
                 pokestopName={item.name}
+                pokestopLatitude={item.latitude}
+                pokestopLongitude={item.longitude}
                 currentPlacement={index + 1 + "/" + category.pokestops.length}
             ></QuestMapCard>
             );

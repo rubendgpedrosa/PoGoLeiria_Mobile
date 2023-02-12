@@ -11,7 +11,6 @@ export default function QuestList(props) {
       style={{
         width: "100%",
         paddingHorizontal: "2%",
-        paddingTop: 10,
       }}
       data={props.filteredQuests}
       refreshControl={
@@ -41,7 +40,7 @@ export default function QuestList(props) {
             ))}
           </View>
         ) : (
-          <Text style={{ color: "#c0c0c0" }}>No Results</Text>
+          <Text style={{ color: "#c0c0c0", alignSelf: "center" }}>No Results Found</Text>
         )
       )}
     />
