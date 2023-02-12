@@ -130,7 +130,6 @@ export default function QuestCategoriesScreen({ route, navigation }) {
         setSearchTerm={setSearchTerm}
         handleClearSearchTerm={handleClearSearchTerm}
       ></SearchInputField>
-      <Divider mt="4" _light={{ bg: "muted.800" }} _dark={{ bg: "muted.50" }} />
       <QuestList
         navigate={navigation.navigate}
         categoryColor={categoryColor}
@@ -149,6 +148,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingTop: "4%",
     paddingBottom: "4%",
-    backgroundColor: "#070707",
+    backgroundColor: "#272727",
   },
 });

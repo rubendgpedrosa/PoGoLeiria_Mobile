@@ -1,6 +1,6 @@
 import combatPower from "../../library/combatPower";
 import { Text, TouchableOpacity, Image, RefreshControl } from "react-native";
-import { FlatList } from "native-base";
+import { FlatList, Skeleton } from "native-base";
 import { StyleSheet, View } from "react-native";
 
 import QuestCard from "./QuestCard";
@@ -32,13 +32,17 @@ export default function QuestList(props) {
       )}
       keyExtractor={(item, index) => index.toString()}
       ListEmptyComponent={() => (
-        <Text
-          style={{
-            color: "#c0c0c0",
-          }}
-        >
-          No Results
-        </Text>
+        props.isLoading ? (
+          <View>
+            {[...Array(12)].map((_, i) => (
+                <View key={i} style={styles.skeletonQuestCardItem}>
+                        <Skeleton startColor="#141414" endColor="#292929" h="90" speed="0.75" />
+                </View>
+            ))}
+          </View>
+        ) : (
+          <Text style={{ color: "#c0c0c0" }}>No Results</Text>
+        )
       )}
     />
   );
@@ -90,5 +94,13 @@ const styles = StyleSheet.create({
     opacity: 0.8,
     width: "100%",
     fontWeight: "bold",
+  },
+  skeletonQuestCardItem: {
+    height: 70,
+    borderRadius: 10,
+    justifyContent: 'center',
+    backgroundColor: 'transparent',
+    marginBottom: 10,
+    overflow: 'hidden',
   },
 });
