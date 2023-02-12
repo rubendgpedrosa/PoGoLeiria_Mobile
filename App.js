@@ -8,7 +8,7 @@ import QuestListFromCategoriesScreen from './screens/QuestListFromCategoriesScre
 import QuestMapLocationScreen from './screens/QuestMapLocationScreen';
 
 import { FilterProvider } from './store/FilterContext';
-import TopBarFilter from './components/TopBarFilter';
+import TopBarFilter from './components/topbar/TopBarFilter';
 
 export default function App() {
   const Stack = createNativeStackNavigator();
